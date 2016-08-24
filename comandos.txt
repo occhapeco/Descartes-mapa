@@ -1,0 +1,2 @@
+cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="AIzaSyAc8vEtoP-xLjC3cfBxYXnQ00B0rH1zEQk" --variable API_KEY_FOR_IOS="AIzaSyAQeVFYUrWE1pSffAmlHwFzGrFTN68i3ms" <MAPAS>
+phonegap create C:\Users\OC-2016\Documents\Teste --id "com.example.br" --name "Teste" <CRIAR>
