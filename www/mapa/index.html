@@ -362,10 +362,10 @@
               alert(state);
               alert(city);
               document.getElementById('estado').value = state;
-              document.getElementById('endereco').value = state;
-              document.getElementById('cep').value = state;
-              document.getElementById('pais').value = state;
-              document.getElementById('cidade').value = state;
+              document.getElementById('endereco').value = address;
+              document.getElementById('cep').value = zip;
+              document.getElementById('pais').value = country;
+              document.getElementById('cidade').value = city;
             } else {
              //window.alert('No results found');
             }
@@ -373,7 +373,7 @@
             //window.alert('Geocoder failed due to: ' + status);
           }
         });
-        document.getElementById("submete").submit();
+       //document.getElementById("submete").submit();
       }
 
     </script>
