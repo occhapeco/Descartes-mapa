@@ -16,6 +16,8 @@ myApp.onPageInit('about', function (page) {
     $$('.create-page').on('click', function () {
         createContentPage();
     });
+
+    
 });
 
 // Generate dynamic page
@@ -46,3 +48,4 @@ function createContentPage() {
     );
 	return;
 }
+ 
