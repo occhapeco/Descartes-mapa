@@ -27,22 +27,16 @@
         margin-top:56px;
       }
 
-      .controls {
-      }
-
-      #pac-input {
-      }
-
-      #pac-input:focus {
-      }
-
       .pac-container {
         font-family: Roboto;
         z-index: 1000000 !important;
       }
 
-      .pac-item {
-        z-index: 100000000 !important;
+      .pac-item-query {
+        font-size: 16px;
+      }
+      .pac-item{
+        font-size: 16px;
       }
 
       #type-selector {
@@ -53,12 +47,13 @@
 
       #type-selector label {
         font-family: Roboto;
-        font-size: 13px;
+        font-size: 25px;
         font-weight: 300;
       }
 
-      #target {
-        width: 345px;
+      #pac-input {
+          width: 100%;
+          font-size: 18px;
       }
     </style>   
   </head>
@@ -90,17 +85,12 @@
               <!-- Right link contains only icon - additional "icon-only" class--><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
             </div>
             <!-- We have home navbar without left link-->
-            <div class="center sliding">
 
             <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
               <div class="searchbar-input">
-                <input id="pac-input" class="controls" type="search" placeholder="Pesquise a localidade" data-tap-disabled='true'><a href="#" class="searchbar-clear"></a>
+                <input id="pac-input" class="controls" type="search" placeholder="Pesquise a localidade" data-tap-disabled='true'>
               </div>
             </form>
-
-            
-             
-              </div>
           </div>
         </div>
         <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
