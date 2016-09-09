@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="css/my-app.css">
     <script type="text/javascript" src="mapa/js/markerclusterer.js"></script>
     <style type="text/css">
-    <style>
 
       html, body {
         height: 100%;
@@ -26,6 +25,13 @@
       #map {
         height: calc(100% - 56px);
         margin-top:56px;
+      }
+      #rightpanel{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 0;
+        background-color: #FFFFFF;
       }
 
       .pac-container {
@@ -128,6 +134,7 @@
                 <input type="hidden" name="cep" id="cep" value="">
             </form>
             <div id="map"></div>
+            <div id="rightpanel"></div>
           </div>
         </div>
       </div>
@@ -171,8 +178,8 @@
     <!-- Path to your app js-->
     
     <script type="text/javascript" src="cordova.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmWPAIE9_AASg6Ijgoh0lVOZZ_VWvw6fg&libraries=places"></script>
     <script type="text/javascript" src="js/mapa.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmWPAIE9_AASg6Ijgoh0lVOZZ_VWvw6fg&libraries=places&callback=initAutocomplete" async defer></script>
     <script type="text/javascript" src="js/my-app.js"></script>    
   </body>
 </html>

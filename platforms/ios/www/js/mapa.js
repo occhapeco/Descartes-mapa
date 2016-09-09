@@ -1,11 +1,21 @@
+var map;
+var markers = [];
 function initAutocomplete() {
                 //criação da infowindow
         var infowindow = new google.maps.InfoWindow();
-        var poder = true; // somente utilizada quando a empresa for criar um ponto para selecionar o local
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var poder = true;
+        map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 11,
+                draggable:true,
                 center: new google.maps.LatLng(-23.5833158, -46.6339829),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl : false,
+                streetViewControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_BOTTOM
+                },
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_BOTTOM
+                },
                 styles: [
                   {
                     "stylers": [
@@ -68,7 +78,7 @@ function initAutocomplete() {
           searchBox.setBounds(map.getBounds());
         });
 
-        var markers = [];
+        
         searchBox.addListener('places_changed', function() {
           var places = searchBox.getPlaces();
 
@@ -112,14 +122,15 @@ function initAutocomplete() {
           var marker = new google.maps.Marker({
             position: feature.position,
             icon: icons[feature.type].icon,
-            map: map,
             draggable:feature.draggable, // se pode ser arrastado
             info: feature.info //conteudo do marcador
           });
 
+          marker.setMap(map);
+
           google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(this.info); //conteúdo do marcador
-            infowindow.open(map, this);
+              infowindow.setContent(this.info); //conteúdo do marcador
+              infowindow.open(map, this);
           });
 
           if (feature.draggable == true) {
@@ -145,7 +156,7 @@ function initAutocomplete() {
           '<p class="col-sm-6"> OLHA O CONTEÚDO DO PONTO MAHOE</p>'+
           '<p class="col-sm-6"> OEIOEIOEIOEOEIOEIEOIEOEI </p><p>'+
           '<p>'+
-          '<button class="btn btn-primary" onclick="submeter();">SUCESSO!</button>'+
+          '<button class="btn btn-primary" onclick="calculateAndDisplayRoute() ;">SUCESSO!</button>'+
           ''+
           '</p>'+'</p>'+
           '</div>'+
@@ -163,40 +174,25 @@ function initAutocomplete() {
 
         //uso de ícone personalizado e conteúdo de cada marker
         var features = [
-
-         /* <?php
-                $pontos = mysql_query("SELECT * FROM pontos order by id");
-                $lin = mysql_num_rows($pontos);
-
-                for ($i=0; $i <$lin ; $i++)
-                {
-                  $reg=mysql_fetch_row($pontos);
-                  ?>
                   {
-                    position: new google.maps.LatLng(<?php echo "$reg[2],$reg[3]" ?>),
+                    position: new google.maps.LatLng(-27.090416, -52.622415),
                     type: 'mark1',
                     info:'<div id="content">'+
                           '<div id="siteNotice">'+
                           '</div>'+
-                          '<h1 id="firstHeading" class="firstHeading"><?php echo utf8_encode($reg[1]); ?></h1>'+
+                          '<h1 id="firstHeading" class="firstHeading"></h1>'+
                           '<div id="bodyContent" class="col-sm-12">'+
-                          '<p class="col-sm-6"> <?php echo utf8_encode($reg[1]); ?></p>'+
-                          '<p class="col-sm-6"> <?php echo utf8_encode($reg[4]); ?> </p>'+
-                          '<form action="#" method="post">'+
-                          '<p>'+
-                          '<button class="btn btn-primary" type="submit">SUCESSO!</button>'+
+                          '<p class="col-sm-6"> </p>'+
+                          '<p class="col-sm-6"> </p>'+
                           ''+
-                          '</p></form>'+
+                          '<p>'+
+                          '<button class="btn btn-primary" onclick="setMapOnAll(map);" type="">SUCESSO!</button>'+
+                          ''+
+                          '</p>'+
                           '</div>'+
                           '</div>',
                     draggable:false
                   }
-                  <?php
-                  if ($i!=$lin-1) {
-                    echo ",";
-                  }
-                }
-          ?>*/
         ];
 
         //cria as variáveis chamando as funções
@@ -261,3 +257,35 @@ function initAutocomplete() {
         });
        //document.getElementById("submete").submit();
       }
+
+      function calculateAndDisplayRoute() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer; 
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById("rightpanel"));
+        document.getElementById("rightpanel").style.height = 'calc(40% - 56px)';
+        document.getElementById("rightpanel").style.zIndex = '9999999999999';
+        document.getElementById("rightpanel").style.overflow = 'auto';
+        document.getElementById("map").style.height = '60%';
+        setMapOnAll(null);
+        directionsService.route({
+          origin: new google.maps.LatLng(-27.090416, -52.622415),
+          destination: new google.maps.LatLng(document.getElementById("lat").value,document.getElementById("long").value),
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+
+      function setMapOnAll(mapi) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(mapi);
+          markers[i].setIcon(null);
+        }
+      }
+
+initAutocomplete();
